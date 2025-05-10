@@ -13,10 +13,10 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         DB::table('products')->insert([
-            'title' => 'Example Product',
-            'slug' => 'example-product',
-            'description' => 'This is an example product.',
-            'price' => 5000,
+            'title' => 'Nike Air Force 1',
+            'slug' => 'nike-air-force-1',
+            'description' => 'Nike Air Force 1 Description',
+            'price' => 9000,
             'live_at' => now(),
             'created_at' => now(),
             'updated_at' => now(),
