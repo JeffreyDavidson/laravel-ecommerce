@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
@@ -13,5 +14,13 @@ class Product extends Model
     public function formattedPrice(): string
     {
         return money($this->price);
+    }
+
+    /**
+     * Get all of the comments for the Product
+     */
+    public function variations(): HasMany
+    {
+        return $this->hasMany(Variation::class);
     }
 }
