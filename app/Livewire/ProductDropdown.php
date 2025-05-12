@@ -22,11 +22,6 @@ class ProductDropdown extends Component
         return Variation::find($this->selectedVariation);
     }
 
-    public function updated()
-    {
-        dd('updated hook');
-    }
-
     public function render()
     {
         return view('livewire.product-dropdown');
