@@ -9,9 +9,9 @@ use Livewire\Component;
 class Navigation extends Component
 {
     #[Computed]
-    public function cart(CartInterface $cart)
+    public function cart()
     {
-        return $cart;
+        return app(CartInterface::class);
     }
 
     public function render()
