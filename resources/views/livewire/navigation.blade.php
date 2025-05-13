@@ -22,7 +22,7 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-8">
                 <a href="/cart"
                     class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                    Cart (0)
+                    Cart ({{ $this->cart->contentsCount() }})
                 </a>
                 @auth
                     <x-dropdown align="right" width="48">
