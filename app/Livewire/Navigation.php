@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Cart\Contracts\CartInterface;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Navigation extends Component
@@ -12,6 +13,12 @@ class Navigation extends Component
     public function cart()
     {
         return app(CartInterface::class);
+    }
+
+    #[On('cart.updated')]
+    public function updateCart()
+    {
+        $this->dispatch('refresh');
     }
 
     public function render()
