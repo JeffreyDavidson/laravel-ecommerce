@@ -33,7 +33,7 @@ class ProductSelector extends Component
 
     public function addToCart()
     {
-        dd($this->skuVariant);
+        // dd($this->skuVariant);
     }
 
     public function render()
