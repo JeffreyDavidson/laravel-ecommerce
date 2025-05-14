@@ -17,5 +17,5 @@
         </h2>
     </x-slot>
 
-    Product Browswer
+    <livewire:product-browser :category="$category" />
 </x-app-layout>
