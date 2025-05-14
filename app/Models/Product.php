@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Searchable;
 use Spatie\Image\Enums\Fit;
@@ -32,6 +33,14 @@ class Product extends Model implements HasMedia
         return $this->hasMany(Variation::class);
     }
 
+    /**
+     * Get all of the categories for the product.
+     */
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb200x200')
@@ -51,6 +60,7 @@ class Product extends Model implements HasMedia
             'title' => $this->title,
             'slug' => $this->slug,
             'price' => $this->price,
+            'category_ids' => $this->categories->pluck('id')->toArray(),
         ];
     }
 }
