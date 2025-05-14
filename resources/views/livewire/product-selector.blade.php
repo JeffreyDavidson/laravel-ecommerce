@@ -9,7 +9,7 @@
                 {{ $skuVariant->formattedPrice() }}
             </div>
 
-            <x-button wire:click.prevent="addToCart">Add To Cart</x-button>
+            <x-button wire:click.prevent="addToCart">Add to cart</x-button>
         </div>
     @endif
 </div>
