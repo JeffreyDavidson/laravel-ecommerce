@@ -7,7 +7,20 @@
         </div>
 
         <div class="p-6 bg-white border-b border-gray-200 col-span-2 self-start">
-            Cart Summary
+            <div class="p-6 bg-white border-b border-gray-200 col-span-2 self-start">
+                <div class="space-y-4">
+                    <div class="space-y-1">
+                        <div class="space-y-1 flex items-center justify-between">
+                            <div class="font-semibold">Subtotal</div>
+                            <h1 class="font-semibold text-xl">
+                                {{ $cart->formattedSubtotal() }}
+                            </h1>
+                        </div>
+                    </div>
+
+                    <x-button-anchor href="/checkout">Checkout</x-button-anchor>
+                </div>
+            </div>
         </div>
     </div>
 @else
