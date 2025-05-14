@@ -12,11 +12,11 @@ class VariationSeeder extends Seeder
      */
     public function run(): void
     {
-        $productId = DB::table('products')->take(1)->get()->value('id');
+        [$firstProductId, $secondProductId] = DB::table('products')->pluck('id')->toArray();
 
         DB::table('variations')->insert([
             [
-                'product_id' => $productId,
+                'product_id' => $firstProductId,
                 'title' => 'Black',
                 'price' => 9000,
                 'type' => 'color',
@@ -27,7 +27,7 @@ class VariationSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'product_id' => $productId,
+                'product_id' => $firstProductId,
                 'title' => 'White',
                 'price' => 9000,
                 'type' => 'color',
@@ -38,7 +38,7 @@ class VariationSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'product_id' => $productId,
+                'product_id' => $firstProductId,
                 'title' => '8',
                 'price' => 9000,
                 'type' => 'size',
@@ -49,7 +49,7 @@ class VariationSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'product_id' => $productId,
+                'product_id' => $firstProductId,
                 'title' => '9',
                 'price' => 9000,
                 'type' => 'size',
@@ -60,7 +60,7 @@ class VariationSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'product_id' => $productId,
+                'product_id' => $firstProductId,
                 'title' => '8',
                 'price' => 9000,
                 'type' => 'size',
@@ -71,13 +71,35 @@ class VariationSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'product_id' => $productId,
+                'product_id' => $firstProductId,
                 'title' => '9',
                 'price' => 9000,
                 'type' => 'size',
                 'sku' => fake()->randomNumber(8, true),
                 'parent_id' => 2,
                 'order' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'product_id' => $secondProductId,
+                'title' => 'Blue',
+                'price' => 9000,
+                'type' => 'color',
+                'sku' => null,
+                'parent_id' => null,
+                'order' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'product_id' => $secondProductId,
+                'title' => '12',
+                'price' => 9000,
+                'type' => 'size',
+                'sku' => fake()->randomNumber(8, true),
+                'parent_id' => 1,
+                'order' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
