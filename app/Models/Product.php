@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Scout\Searchable;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -16,6 +17,7 @@ class Product extends Model implements HasMedia
     use HasFactory;
 
     use InteractsWithMedia;
+    use Searchable;
 
     public function formattedPrice(): string
     {
@@ -40,5 +42,15 @@ class Product extends Model implements HasMedia
     {
         $this->addMediaCollection('default')
             ->useFallbackUrl(url('/storage/no-product-image.png'));
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'price' => $this->price,
+        ];
     }
 }
