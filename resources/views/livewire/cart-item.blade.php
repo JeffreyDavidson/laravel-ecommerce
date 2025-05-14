@@ -25,7 +25,7 @@
         <div class="flex items-center space-x-4">
             <div class="text-sm flex items-center space-x-2">
                 <div class="font-semibold">Quantity</div>
-                <select class="text-sm border-none" wire:model="quantity">
+                <select class="text-sm border-none" wire:model.live="quantity">
                     @for ($quantity = 1; $quantity <= $variation->stockCount(); $quantity++)
                         <option value="{{ $quantity }}">{{ $quantity }}</option>
                     @endfor
