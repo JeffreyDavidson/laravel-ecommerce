@@ -81,24 +81,28 @@ class VariationSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'product_id' => $secondProductId,
-                'title' => 'Blue',
-                'price' => 9000,
-                'type' => 'color',
-                'sku' => null,
-                'parent_id' => null,
-                'order' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+        ]);
+
+        $blueNikeProductId = DB::table('variations')->insertGetId([
+            'product_id' => $secondProductId,
+            'title' => 'Blue',
+            'price' => 9000,
+            'type' => 'color',
+            'sku' => null,
+            'parent_id' => null,
+            'order' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('variations')->insert([
             [
                 'product_id' => $secondProductId,
                 'title' => '12',
                 'price' => 9000,
                 'type' => 'size',
                 'sku' => fake()->randomNumber(8, true),
-                'parent_id' => 1,
+                'parent_id' => $blueNikeProductId,
                 'order' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
