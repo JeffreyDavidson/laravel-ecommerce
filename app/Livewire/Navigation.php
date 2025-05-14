@@ -7,18 +7,13 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
+#[On('cart.updated')]
 class Navigation extends Component
 {
     #[Computed]
     public function cart()
     {
         return app(CartInterface::class);
-    }
-
-    #[On('cart.updated')]
-    public function updateCart()
-    {
-        $this->dispatch('refresh');
     }
 
     public function render()

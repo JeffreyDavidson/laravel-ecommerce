@@ -39,8 +39,8 @@ class Cart implements CartInterface
         }
 
         $this->instance()->variations()->syncWithoutDetaching([
-            $variation->id = [
-                'quantity' => $quantity,
+            $variation->id => [
+                'quantity' => min($quantity, $variation->stockCount()),
             ],
         ]);
     }
