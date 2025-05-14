@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Cart\Contracts\CartInterface;
+use App\Models\Product;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -10,6 +11,13 @@ use Livewire\Component;
 #[On('cart.updated')]
 class Navigation extends Component
 {
+    public $searchQuery = '';
+
+    public function clearSearch()
+    {
+        $this->searchQuery = '';
+    }
+
     #[Computed]
     public function cart()
     {
@@ -18,6 +26,10 @@ class Navigation extends Component
 
     public function render()
     {
-        return view('livewire.navigation');
+        $products = Product::search($this->searchQuery)->get();
+
+        return view('livewire.navigation', [
+            'products' => $products,
+        ]);
     }
 }
