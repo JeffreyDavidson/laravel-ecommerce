@@ -76,7 +76,6 @@
 
                 <div class="space-y-1">
                     <x-select class="w-full" wire:model.live="shippingTypeId">
-                        <option value="">Choose shipping type</option>
                         @foreach ($shippingTypes as $shippingType)
                             <option value="{{ $shippingType->id }}" wire:key="{{ $shippingType->id }}">
                                 {{ $shippingType->title }}
