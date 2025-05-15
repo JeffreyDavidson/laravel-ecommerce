@@ -42,6 +42,7 @@ class CheckoutForm extends Form
             'address' => 'shipping address',
             'city' => 'shipping city',
             'postcode' => 'shipping postal code',
+            'shippingTypeId' => 'shipping type',
         ];
     }
 }
