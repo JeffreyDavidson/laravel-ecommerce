@@ -19,8 +19,6 @@ class CheckoutForm extends Form
 
     protected function rules()
     {
-        dd($this->all());
-
         return [
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore(auth()->user() ? auth()->user()->id : '')],
             'address' => ['required', 'max:255'],

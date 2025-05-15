@@ -1,15 +1,6 @@
 <form wire:submit.prevent="checkout">
     <div class="overflow-hidden sm:rounded-lg grid grid-cols-6 grid-flow-col gap-4">
         <div class="p-6 bg-white border-b border-gray-200 col-span-3 self-start space-y-6">
-            @if ($errors->any())
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-
-            @endif
-
             @guest
                 <div class="space-y-3">
                     <div class="font-semibold text-lg">Account details</div>
@@ -84,13 +75,20 @@
                 <div class="font-semibold text-lg">Delivery</div>
 
                 <div class="space-y-1">
-                    <x-select class="w-full" wire:model="shippingTypeId">
+                    <x-select class="w-full" wire:model.live="shippingTypeId">
+                        <option value="">Choose shipping type</option>
                         @foreach ($shippingTypes as $shippingType)
-                            <option value="{{ $shippingType->id }}">{{ $shippingType->title }}
+                            <option value="{{ $shippingType->id }}" wire:key="{{ $shippingType->id }}">
+                                {{ $shippingType->title }}
                                 ({{ $shippingType->formattedPrice() }})
                             </option>
                         @endforeach
                     </x-select>
+                    @error('checkoutForm.shippingTypeId')
+                        <div class="mt-2 font-semibold text-red-500">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
             </div>
 
