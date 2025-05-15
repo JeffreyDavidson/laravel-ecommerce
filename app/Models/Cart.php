@@ -17,7 +17,6 @@ class Cart extends Model
         static::creating(function ($model) {
             $model->uuid = (string) Str::uuid();
         });
-
     }
 
     /**
