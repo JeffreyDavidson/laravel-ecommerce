@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Cart\Contracts\CartInterface;
 use App\Livewire\Forms\CheckoutForm;
+use App\Models\Order;
 use App\Models\ShippingAddress;
 use App\Models\ShippingType;
 use Livewire\Attributes\Computed;
@@ -64,19 +65,32 @@ class Checkout extends Component
         return $cart->subtotal() + $this->shippingType->price;
     }
 
-    public function checkout()
+    public function checkout(CartInterface $cart)
     {
         $this->validate();
 
-        ($this->shippingAddress = ShippingAddress::query()
-            ->whereBelongsTo(auth()->user())
+        $this->shippingAddress = ShippingAddress::query()
+            ->when(auth()->user(), function ($query) {
+                $query->whereBelongsTo(auth()->user());
+            })
             ->firstOrCreate([
                 'address' => $this->checkoutForm->address,
                 'city' => $this->checkoutForm->city,
                 'postcode' => $this->checkoutForm->postcode,
-            ]))?->user()
+            ])?->user()
             ->associate(auth()->user())
             ->save();
+
+        $order = Order::make([
+            'email' => $this->checkoutForm->email,
+            'subtotal' => $cart->subtotal(),
+        ]);
+
+        $order->user()->associate(auth()->user());
+        $order->shippingType()->associate($this->shippingType);
+        $order->shippingAdddress()->associate($this->shippingAddress);
+
+        $order->save();
     }
 
     public function render(CartInterface $cart)
