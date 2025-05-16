@@ -124,6 +124,8 @@ class Checkout extends Component
         if (auth()->user()) {
             return to_route('orders.confirmation', $order);
         }
+
+        return to_route('orders');
     }
 
     public function render(CartInterface $cart)

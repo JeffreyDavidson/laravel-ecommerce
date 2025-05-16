@@ -31,6 +31,12 @@ class Order extends Model
         ];
     }
 
+    public $statuses = [
+        'placed_at',
+        'packaged_at',
+        'shipped_at',
+    ];
+
     public static function booted()
     {
         static::creating(function (Order $order) {
@@ -59,5 +65,16 @@ class Order extends Model
         return $this->belongsToMany(Variation::class)
             ->withPivot('quantity')
             ->withTimestamps();
+    }
+
+    public function status()
+    {
+        return collect($this->statuses)
+            ->last(fn ($status) => filled($this->{$status}));
+    }
+
+    public function formattedSubtotal(): string
+    {
+        return money($this->subtotal);
     }
 }
