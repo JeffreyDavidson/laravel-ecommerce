@@ -35,7 +35,7 @@ class ProductBrowser extends Component
                     return $value->map(fn ($value) => $key.' = "'.$value.'"');
                 })
                 ->flatten()
-                ->join(' AND ');
+                ->join(' OR ');
 
             // dd($filters);
             $options['facets'] = ['size', 'color']; // refactor
