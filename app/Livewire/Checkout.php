@@ -120,6 +120,10 @@ class Checkout extends Component
         });
 
         $cart->removeAll();
+
+        if (auth()->user()) {
+            return to_route('orders.confirmation', $order);
+        }
     }
 
     public function render(CartInterface $cart)
