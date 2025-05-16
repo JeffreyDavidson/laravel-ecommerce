@@ -4,10 +4,12 @@ namespace App\Livewire;
 
 use App\Cart\Contracts\CartInterface;
 use App\Livewire\Forms\CheckoutForm;
+use App\Mail\OrderCreated;
 use App\Models\Order;
 use App\Models\ShippingAddress;
 use App\Models\ShippingType;
 use App\Models\Variation;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -120,6 +122,8 @@ class Checkout extends Component
         });
 
         $cart->removeAll();
+
+        Mail::to($order->email)->send(new OrderCreated($order));
 
         if (auth()->user()) {
             return to_route('orders.confirmation', $order);
