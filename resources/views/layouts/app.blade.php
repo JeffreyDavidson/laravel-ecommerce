@@ -14,6 +14,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://js.stripe.com/basil/stripe.js"></script>
 
     @livewireStyles
 </head>

@@ -81,6 +81,14 @@ class Checkout extends Component
     {
         $this->validate();
 
+        if (! $this->getPaymentIntent($cart)->status === 'succeeded') {
+            $this->dispatch('notification', [
+                'body' => 'Your payment failed.',
+            ]);
+
+            return;
+        }
+
         $this->shippingAddress = ShippingAddress::query()
             ->when(auth()->user(), function ($query) {
                 $query->whereBelongsTo(auth()->user());
@@ -157,6 +165,16 @@ class Checkout extends Component
         $cart->updatePaymentIntentId($paymentIntent->id);
 
         return $paymentIntent;
+    }
+
+    public function callValidate()
+    {
+        $this->validate();
+    }
+
+    public function getErrorCount()
+    {
+        return $this->getErrorBag()->count();
     }
 
     public function render(CartInterface $cart)
