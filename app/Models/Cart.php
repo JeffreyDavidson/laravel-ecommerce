@@ -9,6 +9,10 @@ use Illuminate\Support\Str;
 
 class Cart extends Model
 {
+    protected $fillable = [
+        'payment_intent_id',
+    ];
+
     /**
      * The "booted" method of the model.
      */
