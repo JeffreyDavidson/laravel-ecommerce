@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Order extends Model
@@ -51,5 +52,12 @@ class Order extends Model
     public function shippingAddress(): BelongsTo
     {
         return $this->belongsTo(ShippingAddress::class);
+    }
+
+    public function variations(): BelongsToMany
+    {
+        return $this->belongsToMany(Variation::class)
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 }
