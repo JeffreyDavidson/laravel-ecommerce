@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Presenters\OrderPresenter;
 use App\Observers\OrderObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
@@ -79,5 +80,10 @@ class Order extends Model
     public function formattedSubtotal(): string
     {
         return money($this->subtotal);
+    }
+
+    public function presenter()
+    {
+        return new OrderPresenter($this);
     }
 }
