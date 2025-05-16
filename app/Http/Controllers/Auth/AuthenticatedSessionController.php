@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Cart\Contracts\CartInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
@@ -22,11 +23,13 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request, CartInterface $cart): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        $cart->associate($request->user);
 
         return redirect()->intended(route('home', absolute: false));
     }
