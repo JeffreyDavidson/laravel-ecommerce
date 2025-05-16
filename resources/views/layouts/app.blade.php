@@ -37,7 +37,7 @@
         </main>
     </div>
     <x-notification />
-    @livewireScriptsConfig
+    @livewireScripts
 </body>
 
 </html>

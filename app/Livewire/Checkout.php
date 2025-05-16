@@ -25,7 +25,7 @@ class Checkout extends Component
     public function mount()
     {
         $this->shippingTypes = ShippingType::orderBy('price', 'asc')->get();
-        $this->shippingTypeId = $this->shippingTypes->first()->id;
+        $this->shippingTypeId = $this->checkoutForm->shippingTypeId = $this->shippingTypes->first()->id;
 
         if ($user = auth()->user()) {
             $this->checkoutForm->email = $user->email;
@@ -38,11 +38,11 @@ class Checkout extends Component
             return;
         }
 
-        $userShippingAddress = $this->userShippingAddress->find($id)->only('address', 'city', 'postcode');
+        $userShippingAddress = $this->userShippingAddresses->find($id)->only('address', 'city', 'postcode');
 
-        $this->checkoutForm->address = $userShippingAddress->address;
-        $this->checkoutForm->city = $userShippingAddress->city;
-        $this->checkoutForm->postcode = $userShippingAddress->postcode;
+        $this->checkoutForm->address = $userShippingAddress['address'];
+        $this->checkoutForm->city = $userShippingAddress['city'];
+        $this->checkoutForm->postcode = $userShippingAddress['postcode'];
     }
 
     #[Computed]
@@ -55,6 +55,15 @@ class Checkout extends Component
     public function shippingType()
     {
         return $this->shippingTypes->find($this->shippingTypeId);
+    }
+
+    public function updatedShippingTypeId(int $id)
+    {
+        if (! $id) {
+            return;
+        }
+
+        $this->checkoutForm->shippingTypeId = $id;
     }
 
     #[Computed]
@@ -88,7 +97,7 @@ class Checkout extends Component
 
         $order->user()->associate(auth()->user());
         $order->shippingType()->associate($this->shippingType);
-        $order->shippingAdddress()->associate($this->shippingAddress);
+        $order->shippingAddress()->associate($this->shippingAddress);
 
         $order->save();
     }

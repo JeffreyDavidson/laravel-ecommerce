@@ -113,7 +113,7 @@ class Cart implements CartInterface
     {
         return $this->instance()->variations
             ->reduce(function ($carry, $variation) {
-                return $carry | ($variation->price * $variation->pivot->quantity);
+                return $carry + ($variation->price * $variation->pivot->quantity);
             });
     }
 
