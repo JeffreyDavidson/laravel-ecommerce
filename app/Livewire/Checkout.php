@@ -35,9 +35,11 @@ class Checkout extends Component
         }
     }
 
-    public function updatedUserShippingAddressId(int $id)
+    public function updatedUserShippingAddressId(string $id)
     {
         if (! $id) {
+            $this->checkoutForm->reset(['address', 'city', 'postcode']);
+
             return;
         }
 
