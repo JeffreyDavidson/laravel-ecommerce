@@ -66,7 +66,7 @@
                 <div class="font-semibold text-lg">Shipping</div>
 
                 @if ($this->userShippingAddresses)
-                    <x-select class="w-full" wire:model="userShippingAddressId">
+                    <x-select class="w-full" wire:model.live="userShippingAddressId">
                         <option value="">Choose a pre-saved address</option>
                         @foreach ($this->userShippingAddresses as $address)
                             <option value="{{ $address->id }}">{{ $address->formattedAddress() }}</option>
