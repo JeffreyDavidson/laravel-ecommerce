@@ -137,7 +137,7 @@ class Checkout extends Component
 
         $cart->destroy();
 
-        if (! auth()->user()) {
+        if (!auth()->user()) {
             return to_route('orders.confirmation', $order);
         }
 
