@@ -17,6 +17,8 @@ class AttachOrders
             ->get()
             ->each(function (Order $order) use ($event) {
                 $order->user()->associate($event->user);
+                $order->shippingAddress->user()->associate($event->user);
+                $order->shippingAddress->save();
                 $order->save();
             });
     }
