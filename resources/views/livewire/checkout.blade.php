@@ -118,7 +118,7 @@
                 <div class="font-semibold text-lg">Delivery</div>
 
                 <div class="space-y-1">
-                    <x-select class="w-full" wire:model.live="checkoutForm.shippingTypeId">
+                    <x-select class="w-full" wire:model.live="shippingTypeId">
                         @foreach ($shippingTypes as $shippingType)
                             <option value="{{ $shippingType->id }}" wire:key="{{ $shippingType->id }}">
                                 {{ $shippingType->title }}
@@ -126,7 +126,7 @@
                             </option>
                         @endforeach
                     </x-select>
-                    @error('checkoutForm.shippingTypeId')
+                    @error('shippingTypeId')
                         <div class="mt-2 font-semibold text-red-500">
                             {{ $message }}
                         </div>
